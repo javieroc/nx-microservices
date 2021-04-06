@@ -1,23 +1,20 @@
 {
   "version": 2,
-  "cli": {
-    "defaultCollection": "@nrwl/express"
-  },
-  "defaultProject": "api-users",
+  "cli": { "defaultCollection": "@nrwl/express" },
+  "defaultProject": "api-auth",
   "projects": {
-    "api-users": {
-      "root": "apps/api-users",
-      "sourceRoot": "apps/api-users/src",
+    "api-auth": {
+      "root": "apps/api-auth",
+      "sourceRoot": "apps/api-auth/src",
       "projectType": "application",
       "targets": {
         "build": {
           "executor": "@nrwl/node:build",
           "outputs": ["{options.outputPath}"],
           "options": {
-            "outputPath": "dist/apps/api-users",
-            "main": "apps/api-users/src/main.ts",
-            "tsConfig": "apps/api-users/tsconfig.app.json",
-            "assets": ["apps/api-users/src/assets"]
+            "outputPath": "dist/apps/api-auth",
+            "main": "apps/api-auth/src/main.ts",
+            "tsConfig": "apps/api-auth/tsconfig.app.json"
           },
           "configurations": {
             "production": {
@@ -26,8 +23,8 @@
               "inspect": false,
               "fileReplacements": [
                 {
-                  "replace": "apps/api-users/src/environments/environment.ts",
-                  "with": "apps/api-users/src/environments/environment.prod.ts"
+                  "replace": "apps/api-auth/src/environments/environment.ts",
+                  "with": "apps/api-auth/src/environments/environment.prod.ts"
                 }
               ]
             }
@@ -35,21 +32,17 @@
         },
         "serve": {
           "executor": "@nrwl/node:execute",
-          "options": {
-            "buildTarget": "api-users:build"
-          }
+          "options": { "buildTarget": "api-auth:build" }
         },
         "lint": {
           "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["apps/api-users/**/*.ts"]
-          }
+          "options": { "lintFilePatterns": ["apps/api-auth/**/*.ts"] }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/api-users"],
+          "outputs": ["coverage/apps/api-auth"],
           "options": {
-            "jestConfig": "apps/api-users/jest.config.js",
+            "jestConfig": "apps/api-auth/jest.config.js",
             "passWithNoTests": true
           }
         }
