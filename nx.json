@@ -15,5 +15,5 @@
       "options": { "cacheableOperations": ["build", "lint", "test", "e2e"] }
     }
   },
-  "projects": { "api-auth": { "tags": [] } }
+  "projects": { "api-auth": { "tags": [] }, "api-products": { "tags": [] } }
 }
