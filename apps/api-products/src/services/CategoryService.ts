@@ -1,18 +1,40 @@
-import { CategoryCreateObject, CategoryUpdateObject } from "../types"
-import { Category } from "../models"
+import { Category } from '../models';
+import {
+  CategoryCreatePayload,
+  CategoryUpdatePayload,
+  Category as CategoryType,
+} from '../types';
 
-
-const create = async (categoryPayload: CategoryCreateObject)  => {
+const createCategory = async (categoryPayload: CategoryCreatePayload): Promise<CategoryType> => {
   const category = await Category.create(categoryPayload).save();
   return category;
 }
 
-const update = async (categoryPayload: CategoryUpdateObject) => {
-  // const category = await Category.update(categoryPayload).save();
-  // return category;
+const getAllCategories = async (): Promise<CategoryType[]> => {
+  const categories = await Category.find();
+  return categories;
+}
+
+const getCategoryById = async (categoryId: string): Promise<CategoryType> => {
+  const category = await Category.findOne(categoryId);
+  return category;
+}
+
+const updateCategory = async (
+  categoryId: string,
+  categoryPayload: CategoryUpdatePayload,
+): Promise<void> => {
+  await Category.update({ id: categoryId }, categoryPayload);
+}
+
+const deleteCategory = async (categoryId: string): Promise<void> => {
+  await Category.delete(categoryId);
 }
 
 export const CategoryService = {
-  create,
-  update,
+  createCategory,
+  getCategoryById,
+  getAllCategories,
+  updateCategory,
+  deleteCategory,
 }

@@ -4,6 +4,6 @@ export interface Category {
   description: string;
 }
 
-export type CategoryCreateObject = Omit<Category, 'id'>;
+export type CategoryCreatePayload = Omit<Category, 'id'>;
 
-export type CategoryUpdateObject = Partial<Category>;
+export type CategoryUpdatePayload = Partial<Omit<Category, 'id'>>;

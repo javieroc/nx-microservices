@@ -19,9 +19,15 @@ class Product extends BaseEntity {
   @Column({ type: 'float' })
   price: number;
 
+  @Column({ name: 'user_id', type: 'varchar', nullable: true })
+  userId: string;
+
   @ManyToOne(type => User, user => user.products)
   @JoinColumn({ name: 'user_id' })
   user: User;
+
+  @Column({ name: 'category_id', type: 'varchar', nullable: true })
+  categoryId: string;
 
   @ManyToOne(type => Category, category => category.products)
   @JoinColumn({ name: 'category_id' })
