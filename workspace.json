@@ -114,6 +114,61 @@
           }
         }
       }
+    },
+    "api-orders": {
+      "root": "apps/api-orders",
+      "sourceRoot": "apps/api-orders/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:build",
+          "outputs": [
+            "{options.outputPath}"
+          ],
+          "options": {
+            "outputPath": "dist/apps/api-orders",
+            "main": "apps/api-orders/src/main.ts",
+            "tsConfig": "apps/api-orders/tsconfig.app.json"
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/api-orders/src/environments/environment.ts",
+                  "with": "apps/api-orders/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "api-orders:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/api-orders/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/apps/api-orders"
+          ],
+          "options": {
+            "jestConfig": "apps/api-orders/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   }
 }
