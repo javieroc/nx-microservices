@@ -1,7 +1,8 @@
-import { Module } from '@nestjs/common';
+import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
 import { ConfigModule} from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { OrdersModule } from './orders/orders.module';
+import { AuthMiddleware } from './middlewares';
 
 const configModule = ConfigModule.forRoot();
 
@@ -12,7 +13,7 @@ const dbModule = TypeOrmModule.forRoot({
   username: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  synchronize: false,
+  synchronize: true,
   autoLoadEntities: true,
 })
 
@@ -23,4 +24,8 @@ const dbModule = TypeOrmModule.forRoot({
     OrdersModule,
   ],
 })
-export class AppModule {}
+export class AppModule implements NestModule{
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(AuthMiddleware).forRoutes('orders');
+  }
+}

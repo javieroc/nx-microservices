@@ -1,15 +1,22 @@
-import { Controller, Post, Get, Param, Put, Delete } from "@nestjs/common";
+import { Controller, Post, Get, Param, Put, Delete, Req, Body } from "@nestjs/common";
+import { Request } from "express";
+import { OrdersService } from "./orders.service";
+import { CreateOrderDto, OrderDto, UserDto } from "./dto";
 
 @Controller('orders')
 export class OrdersController {
+  constructor(private ordersService: OrdersService) {}
+
   @Post()
-  create() {
-    return 'create new orders';
+  create(@Req() req: Request, @Body() createOrderDto: CreateOrderDto): Promise<OrderDto> {
+    const user = req.user as UserDto;
+    return this.ordersService.create(user.id, createOrderDto);
   }
 
   @Get()
-  getAll() {
-    return 'all orders';
+  getAll(@Req() req: Request): Promise<OrderDto[]> {
+    const user = req.user as UserDto;
+    return this.ordersService.findAll(user.id);
   }
 
   @Get(':id')

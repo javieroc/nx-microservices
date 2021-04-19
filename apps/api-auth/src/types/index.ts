@@ -1,3 +1,5 @@
+export type Role = 'provider' | 'consumer';
+
 export interface User {
   id: string;
   firstName: string;
@@ -5,6 +7,7 @@ export interface User {
   email: string;
   password: string;
   avatar: string;
+  role: Role;
 }
 
 export type AuthUser = Pick<User, 'id' | 'email'>

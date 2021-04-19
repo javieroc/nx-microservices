@@ -12,7 +12,7 @@ class Category extends BaseEntity {
   @Column({ type: 'text' })
   description: string;
 
-  @OneToMany(type => Product, product => product.category)
+  @OneToMany(() => Product, product => product.category)
   products: Product[]
 }
 

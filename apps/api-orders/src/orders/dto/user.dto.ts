@@ -1,11 +1,12 @@
-export type Role = 'provider' | 'consumer';
+type Role = 'provider' | 'consumer';
 
-export interface User {
+class UserDto {
   id: string;
   firstName: string;
   lastName: string;
   email: string;
-  password: string;
   avatar: string;
   role: Role;
 }
+
+export { UserDto, Role }

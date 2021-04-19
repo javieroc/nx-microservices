@@ -7,8 +7,6 @@ import {
   JoinColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToOne,
-  OneToMany,
 } from 'typeorm';
 import { Order } from './order.entity';
 import { Product } from './product.entity';

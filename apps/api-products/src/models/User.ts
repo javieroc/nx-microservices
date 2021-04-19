@@ -1,7 +1,6 @@
 import { Entity, Column, BaseEntity, PrimaryGeneratedColumn, OneToMany } from 'typeorm'
 import { Product } from './Product';
-
-type UserRoleType = "seller" | "consumer"
+import { Role } from '../types';
 
 @Entity("users")
 class User extends BaseEntity {
@@ -25,10 +24,10 @@ class User extends BaseEntity {
 
   @Column({
     type: "enum",
-    enum: ["seller", "consumer"],
+    enum: ["provider", "consumer"],
     default: "consumer"
   })
-  role: UserRoleType
+  role: Role;
 
   @OneToMany(type => Product, product => product.user)
   products: Product[];

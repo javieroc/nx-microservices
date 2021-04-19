@@ -1,6 +1,5 @@
 import { Entity, Column, BaseEntity, PrimaryGeneratedColumn } from 'typeorm'
-
-type UserRoleType = "seller" | "consumer"
+import { Role } from '../types';
 
 @Entity("users")
 class User extends BaseEntity {
@@ -24,10 +23,10 @@ class User extends BaseEntity {
 
   @Column({
     type: "enum",
-    enum: ["seller", "consumer"],
+    enum: ["provider", "consumer"],
     default: "consumer"
   })
-  role: UserRoleType
+  role: Role;
 }
 
 export { User }

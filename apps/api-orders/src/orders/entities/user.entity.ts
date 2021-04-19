@@ -1,8 +1,7 @@
 import { Entity, Column, BaseEntity, PrimaryGeneratedColumn, OneToMany } from 'typeorm'
 import { Product } from './product.entity';
 import { Order } from './order.entity';
-
-type UserRoleType = "seller" | "consumer"
+import { Role } from '../dto';
 
 @Entity("users")
 class User extends BaseEntity {
@@ -26,18 +25,18 @@ class User extends BaseEntity {
 
   @Column({
     type: "enum",
-    enum: ["seller", "consumer"],
+    enum: ["provider", "consumer"],
     default: "consumer"
   })
-  role: UserRoleType
+  role: Role;
 
-  @OneToMany(type => Product, product => product.user)
+  @OneToMany(() => Product, product => product.user)
   products: Product[];
 
-  @OneToMany(type => Order, order => order.provider)
+  @OneToMany(() => Order, order => order.provider)
   providerOrders: Order[];
 
-  @OneToMany(type => Order, order => order.consumer)
+  @OneToMany(() => Order, order => order.consumer)
   consumerOrders: Order[];
 }
 
