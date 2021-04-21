@@ -8,7 +8,7 @@ export class OrdersController {
   constructor(private ordersService: OrdersService) {}
 
   @Post()
-  create(@Req() req: Request, @Body() createOrderDto: CreateOrderDto): Promise<OrderDto> {
+  create(@Req() req: Request, @Body('order') createOrderDto: CreateOrderDto): Promise<OrderDto> {
     const user = req.user as UserDto;
     return this.ordersService.create(user.id, createOrderDto);
   }

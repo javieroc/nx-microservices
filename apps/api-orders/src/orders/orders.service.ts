@@ -1,14 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Order, OrderDetails, User } from './entities';
+import { Order, OrderDetails } from './entities';
 import { CreateOrderDto, OrderDto } from './dto';
 
 @Injectable()
 export class OrdersService {
   constructor(
-    @InjectRepository(User)
-    private usersRepository: Repository<User>,
     @InjectRepository(Order)
     private ordersRepository: Repository<Order>,
     @InjectRepository(OrderDetails)
@@ -16,10 +14,6 @@ export class OrdersService {
   ) {}
 
   async create(consumerId: string, { providerId, items }: CreateOrderDto): Promise<OrderDto> {
-    const consumer = await this.usersRepository.findOne(consumerId);
-    if (!(consumer && consumer.role === 'consumer')) {
-      throw new Error('Forbidden action');
-    }
     const total = items.reduce((accum, item) => accum + item.amount * item.price, 0);
     const order = await this.ordersRepository.create({
       consumerId,

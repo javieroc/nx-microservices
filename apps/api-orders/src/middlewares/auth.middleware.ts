@@ -1,6 +1,7 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
 import fetch from 'node-fetch';
+import { UserDto } from '../orders/dto';
 
 @Injectable()
 class AuthMiddleware implements NestMiddleware {
@@ -17,10 +18,13 @@ class AuthMiddleware implements NestMiddleware {
           Authorization: `Bearer ${token}`
         }
       });
-      const data = await response.json()
-      if (!data) throw new Error('auth error');
+      const user: UserDto = await response.json()
+      if (!user) throw new Error('auth error');
 
-      req.user = data;
+      if (user.role !== 'consumer') {
+        throw new Error('Forbidden action');
+      }
+      req.user = user;
 
       next()
     } catch (error) {
