@@ -1,6 +1,7 @@
 import fetch from 'node-fetch';
 import { Request, Response, NextFunction } from 'express';
-import { AuthenticateError } from '../errors';
+import { AuthenticateError, ForbiddenError } from '../errors';
+import { User } from '../types';
 
 const authenticate = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -15,12 +16,14 @@ const authenticate = async (req: Request, res: Response, next: NextFunction) => 
         Authorization: `Bearer ${token}`
       }
     });
-    const data = await response.json()
-    if (!data) throw new AuthenticateError();
+    const user: User = await response.json()
+    if (!user) throw new AuthenticateError();
 
-    req.user = data;
+    if (user.role !== 'provider') throw new ForbiddenError();
 
-    next()
+    req.user = user;
+
+    next();
   } catch (error) {
     next(error)
   }

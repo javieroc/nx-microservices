@@ -1,4 +1,5 @@
 export { AuthenticateError } from './AuthenticateError'
+export { ForbiddenError } from './ForbiddenError'
 export { GenericError } from './GenericError'
-export { ValidationError } from './ValidationError'
 export { NotFoundError } from './NotFoundError'
+export { ValidationError } from './ValidationError'

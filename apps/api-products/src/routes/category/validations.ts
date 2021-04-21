@@ -9,8 +9,8 @@ const validateIdParams = celebrate({
 
 const validateCreateCategory = celebrate({
   [Segments.BODY]: {
-    product: Joi.object().keys({
-      name: Joi.string().email().required(),
+    category: Joi.object().keys({
+      name: Joi.string().required(),
       description: Joi.string().optional(),
     }),
   }
@@ -18,8 +18,8 @@ const validateCreateCategory = celebrate({
 
 const validateUpdateCategory = celebrate({
   [Segments.BODY]: {
-    product: Joi.object().keys({
-      name: Joi.string().email().optional(),
+    category: Joi.object().keys({
+      name: Joi.string().optional(),
       description: Joi.string().optional(),
     }),
   }
