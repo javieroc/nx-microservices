@@ -1,4 +1,4 @@
-import { Injectable, NestMiddleware } from '@nestjs/common';
+import { Injectable, NestMiddleware, UnauthorizedException, ForbiddenException } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
 import fetch from 'node-fetch';
 import { UserDto } from '../orders/dto';
@@ -10,7 +10,7 @@ class AuthMiddleware implements NestMiddleware {
       const token = (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer')
         ? req.headers.authorization.split(' ')[1] : ''
 
-      if (!token) throw new Error('auth error');
+      if (!token) throw new UnauthorizedException();
 
       const url = `${process.env.API_AUTH_URL}/auth/validate`;
       const response = await fetch(url, {
@@ -19,10 +19,10 @@ class AuthMiddleware implements NestMiddleware {
         }
       });
       const user: UserDto = await response.json()
-      if (!user) throw new Error('auth error');
+      if (!user) throw new UnauthorizedException();
 
       if (user.role !== 'consumer') {
-        throw new Error('Forbidden action');
+        throw new ForbiddenException();
       }
       req.user = user;
 
