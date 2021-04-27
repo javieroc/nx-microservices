@@ -14,6 +14,8 @@ export class OrdersService {
   ) {}
 
   async create(consumerId: string, { providerId, items }: CreateOrderDto): Promise<OrderDto> {
+    // @TODO: Create order and its details should be a transaction
+    // @TODO: check using api-products if products ordered are available.
     const total = items.reduce((accum, item) => accum + item.amount * item.price, 0);
     const order = await this.ordersRepository.create({
       consumerId,
