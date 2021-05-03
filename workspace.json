@@ -32,7 +32,8 @@
           "options": {
             "outputPath": "dist/apps/api-auth",
             "main": "apps/api-auth/src/main.ts",
-            "tsConfig": "apps/api-auth/tsconfig.app.json"
+            "tsConfig": "apps/api-auth/tsconfig.app.json",
+            "generatePackageJson": true
           },
           "configurations": {
             "production": {
@@ -81,7 +82,8 @@
           "options": {
             "outputPath": "dist/apps/api-products",
             "main": "apps/api-products/src/main.ts",
-            "tsConfig": "apps/api-products/tsconfig.app.json"
+            "tsConfig": "apps/api-products/tsconfig.app.json",
+            "generatePackageJson": true
           },
           "configurations": {
             "production": {
@@ -130,7 +132,8 @@
           "options": {
             "outputPath": "dist/apps/api-orders",
             "main": "apps/api-orders/src/main.ts",
-            "tsConfig": "apps/api-orders/tsconfig.app.json"
+            "tsConfig": "apps/api-orders/tsconfig.app.json",
+            "generatePackageJson": true
           },
           "configurations": {
             "production": {

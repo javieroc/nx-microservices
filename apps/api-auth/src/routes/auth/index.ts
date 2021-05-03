@@ -7,6 +7,10 @@ import { validateLogin, validateRegister } from './validations';
 
 const authRouter = express.Router();
 
+authRouter.get('/welcome', (req, res) => {
+  res.send({ message: 'Welcome to api-users!' })
+});
+
 const loginHandler = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const authUser = req.user as AuthUser
