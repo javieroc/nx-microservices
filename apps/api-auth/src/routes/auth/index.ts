@@ -31,9 +31,9 @@ authRouter.post(
 
 const registerHandler = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const payloadUser: UserPayload = req.body.user
-    const user = await AuthenticationService.createUser(payloadUser)
-    res.status(200).send(user)
+    const payloadUser: UserPayload = req.body
+    await AuthenticationService.createUser(payloadUser)
+    res.sendStatus(200)
   } catch (error) {
     next(error)
   }

@@ -1,16 +1,13 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { Login, Register } from './pages';
+import { Login, Provider, Register } from './pages';
 
 function App(): JSX.Element {
   return (
     <Router>
       <Switch>
-        <Route exact path="/">
-          <Login />
-        </Route>
-        <Route exact path="/register">
-          <Register />
-        </Route>
+        <Route exact path={['/login', '/']} component={Login} />
+        <Route exact path="/register" component={Register} />
+        <Route exact path="/provider" component={Provider} />
       </Switch>
     </Router>
   );

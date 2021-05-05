@@ -9,14 +9,12 @@ const validateLogin = celebrate({
 
 const validateRegister = celebrate({
   [Segments.BODY]: {
-    user: Joi.object().keys({
-      firstName: Joi.string().required(),
-      lastName: Joi.string().required(),
-      email: Joi.string().email().required(),
-      password: Joi.string().min(8).required(),
-      confirmPassword: Joi.ref('password'),
-      role: Joi.string().valid('provider', 'consumer'),
-    })
+    firstName: Joi.string().required(),
+    lastName: Joi.string().required(),
+    email: Joi.string().email().required(),
+    password: Joi.string().min(8).required(),
+    confirmPassword: Joi.ref('password'),
+    role: Joi.string().valid('provider', 'consumer').required(),
   }
 }, { abortEarly: false })
 

@@ -15,4 +15,12 @@ export interface CreateUserPayload {
   lastName: string;
   role: Role;
   password: string;
+  confirmPassword: string;
+}
+
+export type LoginPayload = Pick<CreateUserPayload, 'email' | 'password'>;
+
+export interface LoginResponse {
+  user: User;
+  token: string;
 }

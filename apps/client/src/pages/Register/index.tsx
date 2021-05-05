@@ -1,7 +1,10 @@
+import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router';
 import { Form, Input, Button, Select } from 'antd';
 import { css } from '@emotion/css';
 import { MailOutlined, LockOutlined, UserOutlined } from '@ant-design/icons';
 import { SimpleLayout } from '../../components';
+import { MiscUtils } from '../../utils';
 import { useRegister } from './hooks/useRegister';
 
 const formCss = css({
@@ -12,13 +15,31 @@ const registerButtonCss = css({
   width: '100%',
 });
 
+const loginLinkCss = css({
+  textAlign: 'center',
+});
+
 function Register(): JSX.Element {
   const [form] = Form.useForm();
-  const { mutate: register } = useRegister();
+  const history = useHistory();
+  const { mutate: register } = useRegister({
+    onSuccess: () => {
+      form.resetFields();
+      history.push('/login');
+    },
+    onError: (err) => {
+      const validationErrors = MiscUtils.getErrors(err);
+      form.setFields(validationErrors.validations.map((validationError) => ({
+        name: validationError.field,
+        errors: [validationError.message]
+      })));
+    }
+  });
+
   function handleSubmit(values) {
-    console.log('form submit', values);
-    form.resetFields();
+    register(values);
   }
+
   return (
     <SimpleLayout>
       <Form className={formCss} onFinish={handleSubmit} form={form}>
@@ -26,11 +47,11 @@ function Register(): JSX.Element {
           <Input prefix={<MailOutlined />} placeholder="Email" />
         </Form.Item>
 
-        <Form.Item name="firstname">
+        <Form.Item name="firstName">
           <Input prefix={<UserOutlined />} placeholder="firstname" />
         </Form.Item>
 
-        <Form.Item name="lastname">
+        <Form.Item name="lastName">
           <Input prefix={<UserOutlined />} placeholder="lastname" />
         </Form.Item>
 
@@ -49,10 +70,22 @@ function Register(): JSX.Element {
           />
         </Form.Item>
 
+        <Form.Item name="confirmPassword">
+          <Input
+            prefix={<LockOutlined />}
+            type="password"
+            placeholder="Confirm Password"
+          />
+        </Form.Item>
+
         <Form.Item>
           <Button type="primary" htmlType="submit" className={registerButtonCss}>
             Register
           </Button>
+        </Form.Item>
+
+        <Form.Item className={loginLinkCss}>
+          <Link to="/login">Log in!</Link>
         </Form.Item>
       </Form>
     </SimpleLayout>
