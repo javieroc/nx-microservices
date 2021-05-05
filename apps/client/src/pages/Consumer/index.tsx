@@ -1,16 +1,16 @@
 import { Redirect } from "react-router";
 import { useAuth } from "../../hooks";
 
-function Provider(): JSX.Element {
+function Consumer(): JSX.Element {
   const { auth } = useAuth();
 
-  if (auth.user.role !== 'provider') {
+  if (auth.user.role !== 'consumer') {
     return <Redirect to="/forbidden" />
   }
 
   return (
-    <h1>Provider</h1>
+    <h1>Consumer</h1>
   );
 }
 
-export { Provider }
+export { Consumer }

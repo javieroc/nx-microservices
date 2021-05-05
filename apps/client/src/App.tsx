@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { Login, Provider, Register } from './pages';
+import { PrivateRoute } from './components';
+import { Consumer, Forbidden, Login, Provider, Register } from './pages';
 
 function App(): JSX.Element {
   return (
@@ -7,7 +8,9 @@ function App(): JSX.Element {
       <Switch>
         <Route exact path={['/login', '/']} component={Login} />
         <Route exact path="/register" component={Register} />
-        <Route exact path="/provider" component={Provider} />
+        <PrivateRoute exact path="/provider" component={Provider} />
+        <PrivateRoute exact path="/consumer" component={Consumer} />
+        <Route exact path="/forbidden" component={Forbidden} />
       </Switch>
     </Router>
   );
