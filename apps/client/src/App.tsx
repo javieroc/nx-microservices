@@ -8,7 +8,7 @@ function App(): JSX.Element {
       <Switch>
         <Route exact path={['/login', '/']} component={Login} />
         <Route exact path="/register" component={Register} />
-        <PrivateRoute exact path="/provider" component={Provider} />
+        <PrivateRoute path="/provider" component={Provider} />
         <PrivateRoute exact path="/consumer" component={Consumer} />
         <Route exact path="/forbidden" component={Forbidden} />
       </Switch>

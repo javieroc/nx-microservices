@@ -1,0 +1,3 @@
+export const DEFAULTS = {
+  NOTIFICATION_DURATION: 3,
+}
