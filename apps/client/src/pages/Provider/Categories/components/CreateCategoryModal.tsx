@@ -3,6 +3,7 @@ import { Form, Input, Modal } from "antd";
 import { Category } from "../../../../types";
 import { useNotification } from '../../../../hooks';
 import { QUERY_KEYS } from '../../../../constants';
+import { MiscUtils } from '../../../../utils';
 import { useAddCategory } from "../../hooks";
 
 interface Props {
@@ -20,13 +21,20 @@ function CreateCategoryModal({ visible, onSubmit, onCancel }: Props): JSX.Elemen
     onSuccess: () => {
       queryClient.invalidateQueries([QUERY_KEYS.CATEGORIES]);
       notification('success', 'Categories', 'Category was added successfully!');
+      onSubmit();
+      form.resetFields();
+    },
+    onError: (err) => {
+      const validationErrors = MiscUtils.getErrors(err);
+      form.setFields(validationErrors.validations.map((validationError) => ({
+        name: validationError.field.split('.').pop(),
+        errors: [validationError.message]
+      })));
     }
   });
 
   function handleSubmit(values) {
     createCategory(values);
-    onSubmit();
-    form.resetFields();
   }
 
   function handleCancel() {

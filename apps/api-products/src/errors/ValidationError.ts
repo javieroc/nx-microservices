@@ -12,7 +12,7 @@ const getErrors = (error: CelebrateError): FieldError[] => {
   error.details.forEach((value) => {
     value.details.forEach((error) => {
       errors.push({
-        field: error.path[0] as string,
+        field: error.path.join('.') as string,
         message: error.message
       })
     })

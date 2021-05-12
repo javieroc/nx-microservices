@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useQueryClient } from 'react-query';
 import { Form, Input, Modal } from "antd";
 import { Category } from "../../../../types";
+import { MiscUtils } from '../../../../utils';
 import { useNotification } from '../../../../hooks';
 import { QUERY_KEYS } from '../../../../constants';
 import { useUpdateCategory } from "../../hooks";
@@ -22,6 +23,13 @@ function EditCategoryModal({ category, visible, onSubmit, onCancel }: Props): JS
     onSuccess: () => {
       queryClient.invalidateQueries([QUERY_KEYS.CATEGORIES]);
       notification('success', 'Categories', 'Category was updated successfully!');
+    },
+    onError: (err) => {
+      const validationErrors = MiscUtils.getErrors(err);
+      form.setFields(validationErrors.validations.map((validationError) => ({
+        name: validationError.field.split('.').pop(),
+        errors: [validationError.message]
+      })));
     }
   });
 

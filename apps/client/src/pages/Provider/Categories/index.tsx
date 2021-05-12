@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Spin, Table, Button } from 'antd';
 import { css } from '@emotion/css';
 import { DeleteOutlined, EditOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
@@ -36,26 +36,19 @@ function Categories(): JSX.Element {
       render: (_: string, category: Category) => {
         return (
           <>
-            <Button type="link" shape="circle" icon={<EditOutlined />} onClick={() => setCategoryToEdit(category)} />
-            <Button type="link" shape="circle" icon={<DeleteOutlined />} onClick={() => setCategoryToDelete(category)} />
+            <Button type="link" shape="circle" icon={<EditOutlined />} onClick={() => {
+              setCategoryToEdit(category);
+              setShowEditModal(true);
+            }} />
+            <Button type="link" shape="circle" icon={<DeleteOutlined />} onClick={() => {
+              setCategoryToDelete(category);
+              setShowDeleteModal(true);
+            }} />
           </>
         )
       }
     }
   ];
-
-  useEffect(() => {
-    if(categoryToEdit) {
-      setShowEditModal(true);
-    }
-  }, [categoryToEdit]);
-
-  useEffect(() => {
-    if(categoryToDelete) {
-      setShowDeleteModal(true);
-    }
-  }, [categoryToDelete]);
-
 
   return (
     <div>

@@ -20,6 +20,9 @@ function DeleteCategoryModal({ category, visible, onSubmit, onCancel }: Props): 
     onSuccess: () => {
       queryClient.invalidateQueries([QUERY_KEYS.CATEGORIES]);
       notification('success', 'Categories', 'Category was delete!');
+    },
+    onError: () => {
+      notification('error', 'Categories', 'Category cannot be deleted!');
     }
   });
 
@@ -34,7 +37,7 @@ function DeleteCategoryModal({ category, visible, onSubmit, onCancel }: Props): 
 
   return (
     <Modal onOk={handleDelete} onCancel={handleCancel} visible={visible} forceRender>
-      <h2>{`Are sure want delete category ${category?.name}`}</h2>
+      <h3>{`Are sure want delete ${category?.name} category`}</h3>
     </Modal>
   );
 }
