@@ -1,7 +1,8 @@
 import { Spin, Table, Button } from 'antd';
 import { css } from '@emotion/css';
 import { DeleteOutlined, EditOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
-import { Category } from '../../../types';
+import { Product } from '../../../types';
+import { useProducts } from './hooks';
 
 
 const headerCss = css({
@@ -11,7 +12,7 @@ const headerCss = css({
 
 function Products(): JSX.Element {
 
-  //const { data: categories, isLoading: isLoadingCategories } = useCategories();
+  const { data: products, isLoading: isLoadingProducts } = useProducts();
 
   const columns = [
     {
@@ -23,9 +24,21 @@ function Products(): JSX.Element {
       dataIndex: 'description',
     },
     {
+      title: 'Category',
+      dataIndex: ['category', 'name'],
+    },
+    {
+      title: 'Amount',
+      dataIndex: 'amount',
+    },
+    {
+      title: 'Price',
+      dataIndex: 'price',
+    },
+    {
       title: 'Actions',
       align: 'center' as const,
-      render: (_: string, category: Category) => {
+      render: (_: string, category: Product) => {
         return (
           <>
             <Button type="link" shape="circle" icon={<EditOutlined />} />
@@ -48,12 +61,12 @@ function Products(): JSX.Element {
           Add Product
         </Button>
       </div>
-      {/* {isLoadingCategories
+      {isLoadingProducts
         ? <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />} />
-        : categories
-          ? <Table dataSource={categories} columns={columns} rowKey="id" size="small" />
+        : products
+          ? <Table dataSource={products} columns={columns} rowKey="id" size="small" />
           : <h1>No Data</h1>
-      } */}
+      }
     </div>
   );
 }

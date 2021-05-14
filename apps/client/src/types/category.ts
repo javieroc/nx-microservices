@@ -6,4 +6,4 @@ export interface Category {
 
 export type CategoryCreatePayload = Pick<Category, 'name' | 'description'>;
 
-export type CategoryUpdatePayload = Pick<Category, 'id'> & Partial<Category>;
+export type CategoryUpdatePayload = Pick<Category, 'id'> & Partial<CategoryCreatePayload>;
