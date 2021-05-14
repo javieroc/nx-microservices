@@ -3,7 +3,7 @@ import { Spin, Table, Button } from 'antd';
 import { css } from '@emotion/css';
 import { DeleteOutlined, EditOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { Category } from '../../../types';
-import { useCategories } from "../hooks";
+import { useCategories } from "./hooks";
 import { CreateCategoryModal, DeleteCategoryModal, EditCategoryModal } from './components';
 
 const headerCss = css({

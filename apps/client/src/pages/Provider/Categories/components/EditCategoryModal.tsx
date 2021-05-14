@@ -5,7 +5,7 @@ import { Category } from "../../../../types";
 import { MiscUtils } from '../../../../utils';
 import { useNotification } from '../../../../hooks';
 import { QUERY_KEYS } from '../../../../constants';
-import { useUpdateCategory } from "../../hooks";
+import { useUpdateCategory } from "../hooks";
 
 interface Props {
   category: Category;

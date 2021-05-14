@@ -3,7 +3,7 @@ import { Modal } from "antd";
 import { Category } from "../../../../types";
 import { useNotification } from '../../../../hooks';
 import { QUERY_KEYS } from '../../../../constants';
-import { useDeleteCategory } from "../../hooks";
+import { useDeleteCategory } from "../hooks";
 
 interface Props {
   category: Category;

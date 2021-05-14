@@ -4,7 +4,7 @@ import { Category } from "../../../../types";
 import { useNotification } from '../../../../hooks';
 import { QUERY_KEYS } from '../../../../constants';
 import { MiscUtils } from '../../../../utils';
-import { useAddCategory } from "../../hooks";
+import { useAddCategory } from "../hooks";
 
 interface Props {
   visible: boolean;

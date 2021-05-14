@@ -1,5 +1,5 @@
-import { Category, CategoryCreatePayload, CategoryUpdatePayload } from '../../types';
-import { api } from '../../utils';
+import { Category, CategoryCreatePayload, CategoryUpdatePayload } from '../../../types';
+import { api } from '../../../utils';
 
 async function getCategories(): Promise<Category[]> {
   const { data } = await api.get('/provider/categories');
