@@ -65,10 +65,10 @@ function CreateProductModal({ visible, onSubmit, onCancel }: Props): JSX.Element
           <Input placeholder="Amount" type="number" />
         </Form.Item>
 
-        <Form.Item name="role">
-          <Select placeholder="Select Role" loading={isLoadingCategories}>
+        <Form.Item name="categoryId">
+          <Select placeholder="Select Category" loading={isLoadingCategories}>
             {categories && categories.map((category: Category) => (
-              <Select.Option value={category.id}>{category.name}</Select.Option>
+              <Select.Option key={category.id} value={category.id}>{category.name}</Select.Option>
             ))}
           </Select>
         </Form.Item>

@@ -46,7 +46,7 @@ function EditCategoryModal({ category, visible, onSubmit, onCancel }: Props): JS
 
   useEffect(() => {
     form.setFieldsValue(category ?? {})
-   }, [form, category]);
+   }, [form, category, visible]);
 
   return (
     <Modal onOk={form.submit} onCancel={handleCancel} visible={visible} forceRender>

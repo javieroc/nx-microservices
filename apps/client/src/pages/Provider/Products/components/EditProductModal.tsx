@@ -1,12 +1,13 @@
+import { useEffect } from 'react';
 import { useQueryClient } from 'react-query';
 import { Form, Input, Modal, Select } from "antd";
 import { useNotification } from '../../../../hooks';
 import { QUERY_KEYS } from '../../../../constants';
 import { MiscUtils } from '../../../../utils';
-import { useCategories, useUpdateCategory } from '../../Categories/hooks';
+import { useCategories } from '../../Categories/hooks';
 import { Category } from '../../Categories/types';
 import { Product } from '../types';
-import { useEffect } from 'react';
+import { useUpdateProduct } from '../hooks';
 
 interface Props {
   visible: boolean;
@@ -21,7 +22,7 @@ function EditProductModal({ visible, product, onSubmit, onCancel }: Props): JSX.
   const notification = useNotification();
   const { data: categories, isLoading: isLoadingCategories } = useCategories();
 
-  const { mutate: updateProduct } = useUpdateCategory({
+  const { mutate: updateProduct } = useUpdateProduct({
     onSuccess: () => {
       queryClient.invalidateQueries([QUERY_KEYS.PRODUCTS]);
       notification('success', 'Products', 'Product was updated successfully!');
@@ -51,7 +52,7 @@ function EditProductModal({ visible, product, onSubmit, onCancel }: Props): JSX.
 
   useEffect(() => {
     form.setFieldsValue(product ?? {})
-   }, [form, product]);
+   }, [form, product, visible]);
 
   return (
     <Modal onOk={form.submit} onCancel={handleCancel} visible={visible} forceRender>
@@ -73,10 +74,10 @@ function EditProductModal({ visible, product, onSubmit, onCancel }: Props): JSX.
           <Input placeholder="Amount" type="number" />
         </Form.Item>
 
-        <Form.Item name="role">
-          <Select placeholder="Select Role" loading={isLoadingCategories}>
+        <Form.Item name="categoryId">
+          <Select placeholder="Select Category" loading={isLoadingCategories}>
             {categories && categories.map((category: Category) => (
-              <Select.Option value={category.id}>{category.name}</Select.Option>
+              <Select.Option key={category.id} value={category.id}>{category.name}</Select.Option>
             ))}
           </Select>
         </Form.Item>

@@ -2,32 +2,32 @@ import { useQueryClient } from 'react-query';
 import { Modal } from "antd";
 import { useNotification } from '../../../../hooks';
 import { QUERY_KEYS } from '../../../../constants';
-import { useDeleteCategory } from "../hooks";
-import { Category } from "../types";
+import { useDeleteProduct } from "../hooks";
+import { Product } from "../types";
 
 interface Props {
-  category: Category;
+  product: Product;
   visible: boolean;
   onSubmit: () => void;
   onCancel: () => void;
 }
 
-function DeleteCategoryModal({ category, visible, onSubmit, onCancel }: Props): JSX.Element {
+function DeleteProductModal({ product, visible, onSubmit, onCancel }: Props): JSX.Element {
   const queryClient = useQueryClient();
   const notification = useNotification();
 
-  const { mutate: deleteCategory } = useDeleteCategory({
+  const { mutate: deleteProduct } = useDeleteProduct({
     onSuccess: () => {
-      queryClient.invalidateQueries([QUERY_KEYS.CATEGORIES]);
-      notification('success', 'Categories', 'Category was delete!');
+      queryClient.invalidateQueries([QUERY_KEYS.PRODUCTS]);
+      notification('success', 'Products', 'Product was delete!');
     },
     onError: () => {
-      notification('error', 'Categories', 'Category cannot be deleted!');
+      notification('error', 'Products', 'Product cannot be deleted!');
     }
   });
 
   function handleDelete() {
-    deleteCategory(category.id);
+    deleteProduct(product.id);
     onSubmit();
   }
 
@@ -37,9 +37,9 @@ function DeleteCategoryModal({ category, visible, onSubmit, onCancel }: Props): 
 
   return (
     <Modal onOk={handleDelete} onCancel={handleCancel} visible={visible} forceRender>
-      <h3>{`Are sure want to delete ${category?.name} category`}</h3>
+      <h3>{`Are sure want to delete ${product?.name} product`}</h3>
     </Modal>
   );
 }
 
-export { DeleteCategoryModal };
+export { DeleteProductModal };
