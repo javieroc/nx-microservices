@@ -1,9 +1,9 @@
 import { useQueryClient } from 'react-query';
 import { Modal } from "antd";
-import { Category } from "../../../../types";
 import { useNotification } from '../../../../hooks';
 import { QUERY_KEYS } from '../../../../constants';
 import { useDeleteCategory } from "../hooks";
+import { Category } from "../types";
 
 interface Props {
   category: Category;

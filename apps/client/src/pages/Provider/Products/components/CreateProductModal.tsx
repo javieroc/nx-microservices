@@ -1,10 +1,11 @@
 import { useQueryClient } from 'react-query';
-import { Form, Input, Modal } from "antd";
+import { Form, Input, Modal, Select } from "antd";
 import { useNotification } from '../../../../hooks';
 import { QUERY_KEYS } from '../../../../constants';
 import { MiscUtils } from '../../../../utils';
-import { Category } from "../types";
-import { useAddCategory } from "../hooks";
+import { useCategories } from '../../Categories/hooks';
+import { Category } from '../../Categories/types';
+import { useAddProduct } from '../hooks/useAddProduct';
 
 interface Props {
   visible: boolean;
@@ -12,15 +13,16 @@ interface Props {
   onCancel: () => void;
 }
 
-function CreateCategoryModal({ visible, onSubmit, onCancel }: Props): JSX.Element {
-  const [form] = Form.useForm<Category>();
+function CreateProductModal({ visible, onSubmit, onCancel }: Props): JSX.Element {
+  const [form] = Form.useForm();
   const queryClient = useQueryClient();
   const notification = useNotification();
+  const { data: categories, isLoading: isLoadingCategories } = useCategories();
 
-  const { mutate: createCategory } = useAddCategory({
+  const { mutate: createProduct } = useAddProduct({
     onSuccess: () => {
-      queryClient.invalidateQueries([QUERY_KEYS.CATEGORIES]);
-      notification('success', 'Categories', 'Category was added successfully!');
+      queryClient.invalidateQueries([QUERY_KEYS.PRODUCTS]);
+      notification('success', 'Products', 'Product was added successfully!');
       onSubmit();
       form.resetFields();
     },
@@ -33,8 +35,9 @@ function CreateCategoryModal({ visible, onSubmit, onCancel }: Props): JSX.Elemen
     }
   });
 
+
   function handleSubmit(values) {
-    createCategory(values);
+    createProduct(values);
   }
 
   function handleCancel() {
@@ -44,7 +47,7 @@ function CreateCategoryModal({ visible, onSubmit, onCancel }: Props): JSX.Elemen
 
   return (
     <Modal onOk={form.submit} onCancel={handleCancel} visible={visible} forceRender>
-      <h2>Add new Category</h2>
+      <h2>Add new Product</h2>
       <Form onFinish={handleSubmit} form={form}>
         <Form.Item name="name">
           <Input placeholder="Name" />
@@ -53,9 +56,25 @@ function CreateCategoryModal({ visible, onSubmit, onCancel }: Props): JSX.Elemen
         <Form.Item name="description">
           <Input.TextArea placeholder="This is a description" rows={3} />
         </Form.Item>
+
+        <Form.Item name="price">
+          <Input placeholder="Price" type="number" />
+        </Form.Item>
+
+        <Form.Item name="amount">
+          <Input placeholder="Amount" type="number" />
+        </Form.Item>
+
+        <Form.Item name="role">
+          <Select placeholder="Select Role" loading={isLoadingCategories}>
+            {categories && categories.map((category: Category) => (
+              <Select.Option value={category.id}>{category.name}</Select.Option>
+            ))}
+          </Select>
+        </Form.Item>
       </Form>
     </Modal>
   );
 }
 
-export { CreateCategoryModal };
+export { CreateProductModal };

@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import { useQueryClient } from 'react-query';
 import { Form, Input, Modal } from "antd";
-import { Category } from "../../../../types";
 import { MiscUtils } from '../../../../utils';
 import { useNotification } from '../../../../hooks';
 import { QUERY_KEYS } from '../../../../constants';
 import { useUpdateCategory } from "../hooks";
+import { Category } from "../types";
 
 interface Props {
   category: Category;

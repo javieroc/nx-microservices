@@ -1,9 +1,8 @@
 import { Spin, Table, Button } from 'antd';
 import { css } from '@emotion/css';
 import { DeleteOutlined, EditOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
-import { Product } from '../../../types';
 import { useProducts } from './hooks';
-
+import { Product } from './types';
 
 const headerCss = css({
   display: 'flex',

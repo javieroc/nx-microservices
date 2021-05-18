@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query';
-import { Category } from '../../../../types';
 import { QUERY_KEYS } from '../../../../constants';
+import { Category } from '../types';
 import { CategoryApi } from '../api';
 
 function useCategories() {
